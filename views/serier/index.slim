@@ -1,0 +1,11 @@
+h2 Welcome to Tv-show!
+
+
+ol
+  - serier.each do |title|
+    li 
+     a href="serier/#{title['id']}" #{title["name"]}
+     /form method="POST" action="movies/#{movie['Id']}/update"
+        input type="submit" value="Update"
+     /form method="POST" action="movies/#{movie['Id']}/delete"
+        input type="submit" value="Delete"
