@@ -1,9 +1,7 @@
-
 form action="/newtvshow" method="POST"
     input type="text" name="tvshow" placeholder="enter tv-show name"
-    input type="text" name="genre" placeholder="enter the shows genre"
-    select# name="genre_id" 
-     option value="1" tert
-     option value="2" ertet
-     option value="3" tertr
+    select# name="genre_id"
+        - for genre in @genres 
+            option value="#{genre["genre_id"]}" #{genre["genrename"]}
+    input type="text" name="link" placeholder="enter link"
     input type="submit" value="Add show"/

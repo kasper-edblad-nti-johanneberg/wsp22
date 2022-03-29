@@ -2,10 +2,13 @@ h2 Welcome to Tv-show!
 
 
 ol
-  - serier.each do |title|
-    li 
-     a href="serier/#{title['id']}" #{title["name"]}
-     /form method="POST" action="movies/#{movie['Id']}/update"
-        input type="submit" value="Update"
-     /form method="POST" action="movies/#{movie['Id']}/delete"
-        input type="submit" value="Delete"
+  - @serier.each do |title|
+   li 
+      a #{title["name"]}
+      a href="#{title['link']}" Gå till faktasida
+      form method="GET" action="serier/update/#{title['id']}"
+         input type="submit" value="Update" 
+      form method="POST" action="serier/delete/#{title['id']}"
+         input type="submit" value="Delete"
+      form method="GET" action="serier/rate/#{title['id']}"
+         input type="submit" value="Rate"
