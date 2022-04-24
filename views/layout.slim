@@ -6,12 +6,21 @@ html lang="en"
     link rel="stylesheet" href="/css/style.css"/
     title Document
   body
-    h1 Tv-shows
+    a href="/" 
+      h1 RateFlix
+    p 
+      h2 A TV-show rating website
     nav 
-      a href="/new" 
-        h1 New
-      a href="/showlogin"
-        h1 Log in
-      a href="/showregister"
-        h1 Register
+      -if session[:id] == nil || session[:auth] == nil
+        a href="/showlogin"
+          h1 Log in
+        a href="/showuserregister"
+          h1 Register
+        a href="/showadminregister"
+          h1 Register as admin
+      -if session[:id] != nil && session[:auth] != nil
+        a href="/new" 
+          h1 New
+        a href="/logout"
+          h1 Log out
     == yield

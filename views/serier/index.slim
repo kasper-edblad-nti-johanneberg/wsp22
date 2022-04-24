@@ -1,14 +1,22 @@
-h2 Welcome to Tv-show!
+h2 Our TV-shows:
 
-
-ol
+ul
   - @serier.each do |title|
    li 
-      a #{title["name"]}
-      a href="#{title['link']}" Gå till faktasida
-      form method="GET" action="serier/update/#{title['id']}"
-         input type="submit" value="Update" 
-      form method="POST" action="serier/delete/#{title['id']}"
-         input type="submit" value="Delete"
-      form method="GET" action="serier/rate/#{title['id']}"
-         input type="submit" value="Rate"
+      p 
+         h3 #{title["name"]}
+      - db = SQLite3::Database.new("db/database.db")
+      - db.results_as_hash = true
+      - if db.execute("SELECT AVG(rating) FROM user_title_relation WHERE title_id = ?", title['id'])[0]['AVG(rating)'] != nil
+         - average_rating = db.execute("SELECT AVG(rating) FROM user_title_relation WHERE title_id = ?", title['id'])[0]['AVG(rating)'].round(1)
+         - if average_rating != nil
+         p Rating: #{average_rating}
+      a href="#{title['link']}" More information about #{title["name"]}
+      -if session[:id] != nil && session[:auth] == 2
+         form method="GET" action="serier/#{title['id']}/update"
+            input type="submit" value="Update" 
+         form method="POST" action="serier/#{title['id']}/delete"
+            input type="submit" value="Delete"
+      -if session[:id] != nil && session[:auth] == 1 || session[:auth] == 2
+         form method="GET" action="serier/#{title['id']}/rate"
+            input type="submit" value="Rate"
