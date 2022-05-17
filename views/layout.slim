@@ -21,6 +21,9 @@ html lang="en"
       -if session[:id] != nil && session[:auth] != nil
         a href="/new" 
           h1 New
+        a href="/showaccount"
+          h1 Account
         a href="/logout"
           h1 Log out
+          
     == yield

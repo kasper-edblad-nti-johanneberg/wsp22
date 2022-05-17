@@ -5,18 +5,11 @@ ul
    li 
       p 
          h3 #{title["name"]}
-      - db = SQLite3::Database.new("db/database.db")
-      - db.results_as_hash = true
-      - if db.execute("SELECT AVG(rating) FROM user_title_relation WHERE title_id = ?", title['id'])[0]['AVG(rating)'] != nil
-         - average_rating = db.execute("SELECT AVG(rating) FROM user_title_relation WHERE title_id = ?", title['id'])[0]['AVG(rating)'].round(1)
-         - if average_rating != nil
-         p Rating: #{average_rating}
+      p Rating: #{title["avg_rate"].round(1)}
       a href="#{title['link']}" More information about #{title["name"]}
-      -if session[:id] != nil && session[:auth] == 2
-         form method="GET" action="serier/#{title['id']}/update"
-            input type="submit" value="Update" 
-         form method="POST" action="serier/#{title['id']}/delete"
-            input type="submit" value="Delete"
-      -if session[:id] != nil && session[:auth] == 1 || session[:auth] == 2
-         form method="GET" action="serier/#{title['id']}/rate"
-            input type="submit" value="Rate"
+      form method="GET" action="/serier/#{title['id']}/update"
+         input type="submit" value="Update"
+      form method="POST" action="serier/#{title['id']}/delete"
+         input type="submit" value="Delete"
+      form method="GET" action="serier/#{title['id']}/rate"
+         input type="submit" value="Rate"
